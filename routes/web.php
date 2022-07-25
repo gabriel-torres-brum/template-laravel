@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Livewire\App\Dashboard;
+use App\Http\Livewire\App\ListMembers;
+use App\Http\Livewire\Login;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +16,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
+Route::get('/', fn() => view('home'));
+
+Route::middleware('guest')->group(function () {
+    Route::get('login', Login::class)->name('login');
 });
+
+Route::middleware('auth')->group(function () {
+    Route::prefix('app')->group(function () {
+        Route::get('dashboard', Dashboard::class)->name('app.dashboard');
+        Route::prefix('member')->group(function () {
+            Route::get('list', ListMembers::class)->name('app.members-list');
+        });
+    });
+    Route::get('logout', function () {
+        auth()->logout();
+        return redirect()->route('login');
+    })->name('logout');
+});
+
+// Route::get('members/list', MembersList::class);

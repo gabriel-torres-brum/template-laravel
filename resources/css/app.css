@@ -7,8 +7,23 @@
 @tailwind components;
 @tailwind utilities;
 
+[x-cloak] {
+  display: none !important;
+}
 
+[hidden] {
+  display: none !important;
+}
+
+/* .btn {
+  @apply border-none outline-none hover:border-none focus:border-none
+} */
+
+html,
+body {
+  height: 100%;
+}
 body {
   font-family: Roboto, sans-serif;
-  @apply antialiased bg-base-300 text-base-content;
+  @apply antialiased bg-base-200 text-base-content;
 }

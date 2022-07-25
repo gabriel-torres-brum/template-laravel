@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('city');
             $table->string('state', 2);
             $table->string('cep', 9);
-            $table->foreignId('member_id')->constrained();
+            $table->foreignId('member_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

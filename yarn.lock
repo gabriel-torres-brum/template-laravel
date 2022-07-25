@@ -7,15 +7,15 @@
   resolved "https://registry.yarnpkg.com/@alpinejs/collapse/-/collapse-3.10.2.tgz#c7c10db6ebf42499b02a4fa32b7440c5828e58a4"
   integrity sha512-ZI7ysUXPjtrdI61dyF23vNRnDLWW/BMeqrdoQtUMENHx7lsYAKvG9asFUM8hV0eF7KVQiHz/K9oV3qX2i6UXhQ==
 
-"@alpinejs/mask@^3.10.2":
-  version "3.10.2"
-  resolved "https://registry.yarnpkg.com/@alpinejs/mask/-/mask-3.10.2.tgz#ca7494d0a07e4a5af84b265bab726a4c214a42a8"
-  integrity sha512-vtD/sD9OQRjpkJ+vlLuKk4RJlCvwH/cCADY8PUxB3LLa9uL3+41N+6ZW0eve42V2oeKxJt6gBEdhtGjrn/V1RQ==
+"@alpinejs/mask@^3.10.3":
+  version "3.10.3"
+  resolved "https://registry.yarnpkg.com/@alpinejs/mask/-/mask-3.10.3.tgz#b0d4c7cca55588e7c76c7e680d29f0adc02f153e"
+  integrity sha512-nOz21GlDDUaxhXCigbNVvO73csmLYvkoI2TX94TeuZOAiyvGHyURNb94L6L7Kv4E9eF5T6W70pN0Af/1sWxr0w==
 
-"@alpinejs/persist@^3.10.2":
-  version "3.10.2"
-  resolved "https://registry.yarnpkg.com/@alpinejs/persist/-/persist-3.10.2.tgz#b59580bda33ca4f9f308745b9cfdf0a3dfd55b64"
-  integrity sha512-BYnc4CxiuBHEaMqeMkU9KVrmV88lOEkdWY6qo5ryDnPMJGg1T/YhAMl3JxPImLJTsdc4r9fmcRgWeCXNPSGJew==
+"@alpinejs/persist@^3.10.3":
+  version "3.10.3"
+  resolved "https://registry.yarnpkg.com/@alpinejs/persist/-/persist-3.10.3.tgz#4d65154d9318b53c1b974fb078532f5f1323b50a"
+  integrity sha512-c5BWcCn4RHPtkeNEe0Mj99FuGuqcBgD1MBmYg8zKEFIjuu0bePd5LkfL8I8gVhrPIL2Ip7xXnREaWK6rVvUWSA==
 
 "@fontsource/roboto@^4.5.7":
   version "4.5.7"
@@ -737,6 +737,11 @@ supports-preserve-symlinks-flag@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/supports-preserve-symlinks-flag/-/supports-preserve-symlinks-flag-1.0.0.tgz#6eda4bd344a3c94aea376d4cc31bc77311039e09"
   integrity sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==
+
+sweetalert2@^11.4.24:
+  version "11.4.24"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-11.4.24.tgz#9dbe1e3096d6fd739e03d5c5fe2d218638fceaf4"
+  integrity sha512-wbD3SbaOhWyebVfnrY9rMjjVf7ZKUHjmn5Ch83NWUg84b/SYn0N4F0Dhxq3QYSAbnAQ7ArovQb2JfxZi5+Ieug==
 
 tailwindcss@^3.0, tailwindcss@^3.1.6:
   version "3.1.6"
