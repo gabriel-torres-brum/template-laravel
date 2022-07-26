@@ -18,9 +18,9 @@ class ModalDelete extends Component
 
     public function show($model, $itemsIdsToDelete, $modalTitle = null)
     {
-        $this->title = $modalTitle ?? is_array($itemsIdsToDelete)
+        $this->title = $modalTitle ?? (is_array($itemsIdsToDelete)
             ? "Deseja realmente excluir os items selecionados?"
-            : "Deseja realmente excluir este item?";
+            : "Deseja realmente excluir este item?");
         $this->itemsIdsToDelete = $itemsIdsToDelete;
         $this->model = $model;
 
@@ -42,10 +42,10 @@ class ModalDelete extends Component
         } else {
             $this->model::find($this->itemsIdsToDelete)->delete();
         }
-        
+
         $this->hide();
 
-        $this->emit('resetPage');
+        $this->emit('resetTable');
 
         $this->dispatchBrowserEvent('alert', [
             'type' => 'success',

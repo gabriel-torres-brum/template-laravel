@@ -122,6 +122,7 @@
     @livewireScripts
 
     <livewire:modal-delete />
+    <livewire:modal-edit />
 </body>
 
 </html>

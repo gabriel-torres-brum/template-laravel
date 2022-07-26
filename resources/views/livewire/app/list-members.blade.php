@@ -11,22 +11,47 @@
                         clip-rule="evenodd"></path>
                 </svg>
             </div>
-            <input type="search" class="w-full pl-10 rounded-md input input-primary input-sm"
-            wire:model.lazy="search" placeholder="Pesquisar membros">
+            <input type="search" class="w-full pl-10 rounded-md input input-primary input-sm" wire:model.lazy="search"
+                placeholder="Pesquisar membros">
         </div>
+        @if ($selectedRows)
         <div class="w-full max-w-xs">
-            <button x-on:click="$wire.emit('modal-delete', '\\App\\Models\\Member', $wire.selectedRows)" class="normal-case rounded-md btn btn-outline btn-warning btn-sm">
+            <button x-on:click="$wire.emit('modal-delete', '\\App\\Models\\Member', $wire.selectedRows)"
+                class="normal-case rounded-md btn btn-outline btn-warning btn-sm">
                 Deletar selecionados
             </button>
         </div>
+        @endif
     </div>
-    <div class="relative overflow-x-auto rounded-md shadow-md shadow-base-300">
+    <div class="relative overflow-x-auto rounded-md shadow-lg shadow-base-200">
+        @if ($selectedRows)
+        <div class="flex py-2">
+            @if ($selectAll)
+            <span class='text-sm'>
+                <span class='font-medium'>
+                    {{ count($selectedRows) }} membros selecionados.
+                </span>
+            </span>
+            @else
+            <span class='text-sm'>
+                <span class='font-medium'>
+                    {{ count($selectedRows) . (count($selectedRows) === 1 ? " membro selecionado." : " membros
+                    selecionados.") }}
+                </span>
+                <a wire:click='selectAll' class='font-bold link link-primary'>
+                    Selecionar todos os {{ $members->total() }} membros
+                </a>
+            </span>
+            @endif
+        </div>
+        @endif
         <table class="w-full text-sm text-left">
             <thead class="text-xs uppercase bg-primary text-primary-content">
                 <tr>
                     <th scope="col" class="p-4">
                         <div class="flex items-center">
-                            <input type="checkbox" wire:model="selectAllRows" class="rounded checkbox checkbox-xs bg-primary-content">
+                            <input type="checkbox" wire:model="selectAllRows"
+                                class="rounded checkbox checkbox-xs bg-primary-content">
                         </div>
                     </th>
                     <th scope="col" class="px-6 py-3">
@@ -50,41 +75,51 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($members as $member)
-                <tr class="font-medium border-b bg-base-100 text-base-content border-base-300">
-                    <td class="w-4 p-4">
-                        <div class="flex items-center">
-                            <input type="checkbox" value="{{$member->id}}"  wire:model="selectedRows"
-                                class="rounded checkbox checkbox-xs bg-primary-content">
-                        </div>
-                    </td>
-                    <th scope="row" class="px-6 py-4 whitespace-nowrap">
-                        {{$member->name}}
-                    </th>
-                    <td class="px-6 py-4">
-                        {{$member->birthday->age}}
-                    </td>
-                    <td class="px-6 py-4">
-                        {{$member->gender}}
-                    </td>
-                    <td class="px-6 py-4">
-                        {{$member->church->church_name}}
-                    </td>
-                    <td class="px-6 py-4">
-                        {{$member->role->description}}
-                    </td>
-                    <td class="px-6 py-4">
-                        <div class="flex w-full gap-3">
-                            <a class="link text-info">
-                                <i class="fa-solid fa-edit"></i>
-                            </a>
-                            <a x-on:click="$wire.emit('modal-delete', '\\App\\Models\\Member', '{{ $member->id }}', 'Deseja realmente excluir o membro {{ $member->name }} do sistema?')" class="link text-error">
-                                <i class="fa-solid fa-trash"></i>
-                            </a>
-                        </div>
-                    </td>
-                </tr>
-                @endforeach
+                @if (count($members) > 0)
+                    @foreach ($members as $member)
+                    <tr
+                        class="font-medium border-b @if ($this->isChecked($member->id)) bg-secondary/60 @else bg-base-100 @endif text-base-content border-base-300">
+                        <td class="w-4 p-4">
+                            <div class="flex items-center">
+                                <input type="checkbox" value="{{$member->id}}" wire:model="selectedRows"
+                                    class="rounded checkbox checkbox-xs bg-primary-content">
+                            </div>
+                        </td>
+                        <th scope="row" class="px-6 py-4 whitespace-nowrap">
+                            {{$member->name}}
+                        </th>
+                        <td class="px-6 py-4">
+                            {{$member->birthday->age}}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{$member->gender}}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{$member->church->church_name}}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{$member->role->description}}
+                        </td>
+                        <td class="px-6 py-4">
+                            <div class="flex w-full gap-3">
+                                <a wire:click="editItem" class="link text-info">
+                                    <i class="fa-solid fa-edit"></i>
+                                </a>
+                                <a wire:click="$emit('modal-delete', '\\App\\Models\\Member', '{{ $member->id }}', &quot;Deseja realmente excluir o membro {{ $member->name }} do sistema?&quot;)"
+                                    class="link text-error">
+                                    <i class="fa-solid fa-trash"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    @endforeach
+                @else
+                    <tr class='font-medium border-b bg-base-100 text-base-content border-base-300'>
+                        <td colspan='100%' class='px-6 py-4 text-center'>
+                            Nenhum item encontrado.
+                        </td>
+                    </tr>
+                @endif
             </tbody>
         </table>
     </div>
