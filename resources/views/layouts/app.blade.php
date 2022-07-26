@@ -48,9 +48,9 @@
                             <i x-cloak x-show="!darkMode" class="fa-solid fa-moon"></i>
                         </a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a>Configurações</a>
-                    </li>
+                    </li> --}}
                     <li>
                         <a>Sair</a>
                     </li>
