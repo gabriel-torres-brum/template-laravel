@@ -49,7 +49,7 @@
                         </a>
                     </li>
                     {{-- <li>
-                        <a>Configurações</a>
+                        <a>Configuraçõe</a>
                     </li> --}}
                     <li>
                         <a>Sair</a>
