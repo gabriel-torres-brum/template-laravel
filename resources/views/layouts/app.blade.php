@@ -30,7 +30,7 @@
         </div>
         <div class="flex-1">
             <a class="text-lg">
-                Sistema
+                Sistema Igreja
             </a>
         </div>
         <div class="flex-none">
@@ -41,7 +41,7 @@
                     </div>
                 </label>
                 <ul
-                    tabindex="0" class="p-2 mt-3 border rounded-md shadow bg-base-300 menu menu-compact dropdown-content w-52 border-base-content/20">
+                    tabindex="0" class="p-2 mt-3 border rounded-md shadow bg-base-300 menu menu-compact dropdown-content w-52 border-base-content/20 text-base-content">
                     <li>
                         <a x-on:click="darkMode = !darkMode">
                             <i x-cloak x-show="darkMode" class="fa-solid fa-sun"></i>
@@ -61,7 +61,7 @@
         @guest
         <div class="flex justify-center flex-1">
             <a class="text-lg">
-                Sistema
+                Sistema Igreja
             </a>
         </div>
         @endguest
