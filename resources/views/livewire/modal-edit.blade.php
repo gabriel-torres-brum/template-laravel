@@ -4,7 +4,6 @@
             <div class="flex flex-col h-full">
                 <span class="text-sm font-bold">{{ $title }}</span>
                 <form wire:submit.prevent='edit'>
-                    <livewire:{{ $teste }} />
                 </form>
                 <div class="flex justify-between mt-auto">
                     <button x-on:click="show = false" wire:click="hide">Cancelar</button>

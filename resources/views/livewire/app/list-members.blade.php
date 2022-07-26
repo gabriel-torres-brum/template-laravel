@@ -102,7 +102,7 @@
                         </td>
                         <td class="px-6 py-4">
                             <div class="flex w-full gap-3">
-                                <a wire:click="editItem" class="link text-info">
+                                <a {{-- wire:click="editItem" --}} class="link text-info">
                                     <i class="fa-solid fa-edit"></i>
                                 </a>
                                 <a wire:click="$emit('modal-delete', '\\App\\Models\\Member', '{{ $member->id }}', &quot;Deseja realmente excluir o membro {{ $member->name }} do sistema?&quot;)"
