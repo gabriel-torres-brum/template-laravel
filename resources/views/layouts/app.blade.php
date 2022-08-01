@@ -1,128 +1,74 @@
 <!DOCTYPE html>
-<html lang="pt-BR" x-data="{ darkMode: $persist(false) }" :data-theme="darkMode ? 'dark' : 'light'">
+<html lang="pt-BR" :class="{ 'dark': darkMode }" x-data="{ darkMode: $persist(false) }" dir="ltr">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@stack('pagetitle')</title>
 
-    @vite('resources/css/app.css')
     @livewireStyles
+    @toastScripts
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script>
         if (localStorage._x_darkMode === 'true' || (!('_x_darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.setAttribute("data-theme", "dark")
+            document.documentElement.classList.add("dark")
         } else {
-            document.documentElement.setAttribute("data-theme", "light")
+            document.documentElement.classList.remove("dark")
         }
     </script>
-    @vite('resources/js/app.js')
 </head>
 
 <body>
-    @include('layouts.preloader')
-    <header class="fixed inset-x-0 top-0 z-30 flex items-center px-4 py-2 shadow bg-primary text-primary-content">
-        @auth
-        <div class="flex-none">
-            <label for="drawer" class="btn btn-square btn-ghost drawer-button btn-sm lg:hidden">
-                <i class='text-lg fa-solid fa-bars'></i>
-            </label>
-        </div>
-        <div class="flex-1">
-            <a class="text-lg">
-                Sistema Igreja
-            </a>
-        </div>
-        <div class="flex-none">
-            <div class="dropdown dropdown-end">
-                <label tabindex="0" class="btn btn-ghost btn-circle avatar btn-sm">
-                    <div class="w-10 rounded-full">
-                        <img src="https://placeimg.com/80/80/people" />
-                    </div>
-                </label>
-                <ul
-                    tabindex="0" class="p-2 mt-3 border rounded-md shadow bg-base-300 menu menu-compact dropdown-content w-52 border-base-content/20 text-base-content">
-                    <li>
-                        <a x-on:click="darkMode = !darkMode">
-                            <i x-cloak x-show="darkMode" class="fa-solid fa-sun"></i>
-                            <i x-cloak x-show="!darkMode" class="fa-solid fa-moon"></i>
-                        </a>
-                    </li>
-                    {{-- <li>
-                        <a>Configurações</a>
-                    </li> --}}
-                    <li>
-                        <a>Sair</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        @endauth
-        @guest
-        <div class="flex justify-center flex-1">
-            <a class="text-lg">
-                Sistema Igreja
-            </a>
-        </div>
-        @endguest
-    </header>
+    <livewire:toasts />
+    {{-- @include('layouts.preloader') --}}
     @auth
-    <div class="drawer drawer-mobile">
-        <input id="drawer" type="checkbox" class="drawer-toggle" />
-        <div class="flex flex-col drawer-content">
-            <!-- Page content here -->
-            <main class='flex-1 p-8 mt-12 overflow-x-hidden overflow-y-auto'>
-                <h3 class='text-xl font-bold tracking-wide text-center md:text-left'>
-                    @stack('pagetitle')
-                </h3>
-                {{ $slot }}
-            </main>
-        </div>
-        <div class="mt-12 drawer-side">
-            <label for="drawer" class="drawer-overlay"></label>
-            <ul
-                class="flex flex-col flex-1 gap-2 p-4 overflow-y-auto border-r bg-primary text-primary-content border-base-300 w-36">
-                <!-- Sidebar content here -->
-                <li>
-                    <a href="{{ !request()->routeIs('app.dashboard') ? route('app.dashboard') : " #" }}"
-                        class="gap-1.5 !flex-col btn h-16 btn-ghost btn-block @if(request()->routeIs('app.dashboard')) btn-active @endif">
-                        <i class="gap-3 fa-solid fa-chart-pie"></i>
-                        <span class="block">
-                            Dashboard
-                        </span>
-                    </a>
+    <header class="fixed inset-x-0 top-0 z-30 flex items-center justify-between w-full h-16 px-6 bg-white shadow">
+        <a href="javascript:void(0)" class="text-lg font-medium">
+            Igreja
+        </a>
+        <div class="flex items-center justify-center flex-1 text-sm">
+            <ul class="flex gap-6">
+                <li class="transition-colors duration-300 transform border-b-2 p-1 @if (request()->routeIs('app.dashboard')) border-blue-700 @else border-transparent hover:border-blue-800 @endif">
+                    <a href="{{ route('app.dashboard') }}">Dashboard</a>
                 </li>
-                <li>
-                    <a href="{{ !request()->routeIs('app.members-list') ? route('app.members-list') : " #" }}"
-                        class="gap-1.5 !flex-col btn h-16 btn-ghost btn-block @if(request()->routeIs('app.members-list')) btn-active @endif">
-                        <i class="gap-3 fa-solid fa-users"></i>
-                        <span class="block">
-                            Membros
-                        </span>
-                    </a>
+                <li class="transition-colors duration-300 transform border-b-2 p-1 @if (request()->routeIs('app.members-list')) border-blue-700 @else border-transparent hover:border-blue-800 @endif">
+                    <a href="{{ route('app.members-list') }}">Membros</a>
                 </li>
-                <li class='mt-auto'>
-                    <a href="{{ route('logout') }}" class="gap-1.5 !flex-col btn h-16 btn-ghost btn-block">
-                        <i class="gap-3 fa-solid fa-sign-out"></i>
-                        <span class="block">
-                            Sair
-                        </span>
-                    </a>
+                <li class="transition-colors duration-300 transform border-b-2 p-1 @if (request()->routeIs('app.roles-list')) border-blue-700 @else border-transparent hover:border-blue-800 @endif">
+                    <a href="{{ route('app.roles-list') }}">Cargos</a>
                 </li>
             </ul>
         </div>
-    </div>
-    @endauth
-    @guest
-    <main class="flex h-full pt-16">
+        <div x-data="{ dropdown: false }" class="relative">
+            <button x-on:click="dropdown = !dropdown" class="p-1 transition-transform bg-gray-200 rounded-full w-7 h-7 active:scale-95">
+                <x-antdesign-user-o class="w-full h-full" />
+            </button>
+            <div x-cloak x-show="dropdown" x-on:click.away="dropdown = false" class="absolute flex flex-col mt-6 text-sm bg-white rounded shadow -ml-28 w-36 after:rotate-45 after:bg-white after:absolute after:-top-2 after:right-2 after:-z-10 after:w-4 after:h-4 after:shadow">
+                <a class="relative inline-flex flex-1 p-3 transition-colors hover:bg-gray-100" href="javascript:void(0)">
+                    <x-antdesign-setting-o class="absolute left-0 w-5 h-5 ml-2.5" />
+                    <span class="ml-6">Configurações</span>
+                </a>
+                <a href="{{ route('logout') }}" class="relative inline-flex flex-1 p-3 transition-colors hover:bg-gray-100" href="javascript:void(0)">
+                    <x-antdesign-logout-o class="absolute left-0 w-5 h-5 ml-2.5" />
+                    <span class="ml-6">Sair</span>
+                </a>
+            </div>
+        </div>
+    </header>
+    <main class="px-8 pt-20 pb-10">
+        <h3 class='mb-4 text-xl font-bold tracking-wide text-center'>
+            @stack('pagetitle')
+        </h3>
         {{ $slot }}
     </main>
+    @endauth
+    @guest
+    {{ $slot }}
     @endguest
-
     @livewireScripts
-
-    <livewire:modal-delete />
-    <livewire:modal-edit />
+    <livewire:modals.modal-delete />
 </body>
 
 </html>

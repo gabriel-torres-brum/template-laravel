@@ -19,9 +19,9 @@ return new class extends Migration
             $table->enum('gender', ['Masculino', 'Feminino']);
             $table->date('birthday');
             $table->boolean('tither');
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('church_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('role_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('church_id')->nullable()->constrained()->nullOnDelete();
+            $table->foreignId('role_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
         });
     }

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('role_name')->unique();
             $table->string('description');
-            $table->enum('gender', ['Masculino', 'Feminino'])->nullable();
+            $table->enum('gender', ['Masculino', 'Feminino', 'Ambos']);
             $table->timestamps();
         });
     }

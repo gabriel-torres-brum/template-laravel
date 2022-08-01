@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Livewire\App\Dashboard;
-use App\Http\Livewire\App\ListMembers;
+use App\Http\Livewire\App\Members\ListMembers;
+use App\Http\Livewire\App\Roles\ListRoles;
 use App\Http\Livewire\Login;
 use Illuminate\Support\Facades\Route;
 
@@ -25,12 +26,16 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::prefix('app')->group(function () {
         Route::get('dashboard', Dashboard::class)->name('app.dashboard');
-        Route::prefix('member')->group(function () {
+        Route::prefix('members')->group(function () {
             Route::get('list', ListMembers::class)->name('app.members-list');
+        });
+        Route::prefix('roles')->group(function () {
+            Route::get('list', ListRoles::class)->name('app.roles-list');
         });
     });
     Route::get('logout', function () {
         auth()->logout();
+        toast()->info('Sessão encerrada')->pushOnNextPage();
         return redirect()->route('login');
     })->name('logout');
 });

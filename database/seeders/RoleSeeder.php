@@ -18,7 +18,7 @@ class RoleSeeder extends Seeder
         Role::factory()->create([
             'role_name' => 'member',
             'description' => 'Membro',
-            'gender' => null
+            'gender' => 'Ambos'
         ]);
 
         Role::factory()->create([

@@ -20,8 +20,10 @@
         "@alpinejs/persist": "^3.10.3",
         "@fontsource/roboto": "^4.5.7",
         "@fortawesome/fontawesome-free": "^6.1.1",
+        "@tailwindcss/forms": "^0.5.2",
         "alpinejs": "^3.10.2",
         "daisyui": "^2.19.0",
-        "sweetalert2": "^11.4.24"
+        "sweetalert2": "^11.4.24",
+        "toastr": "^2.1.4"
     }
 }

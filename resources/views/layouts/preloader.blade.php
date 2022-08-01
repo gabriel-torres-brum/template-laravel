@@ -1,4 +1,4 @@
-<div x-data="{ preloader: true }" x-on:beforeunload.window="preloader = true" x-on:load.window="preloader = false" x-show="preloader" x-transition.opacity.200ms  class="fixed inset-0 z-50 flex items-center justify-center bg-base-300/40 backdrop-blur-sm">
+<div x-data="{ preloader: true }" x-on:load.window="preloader = false" x-show="preloader" x-transition.opacity.200ms  class="fixed inset-0 z-50 flex items-center justify-center bg-base-300/40 backdrop-blur-sm">
     <svg class="inline w-10 h-10 rounded-full text-base-content animate-spin fill-primary"
         viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
