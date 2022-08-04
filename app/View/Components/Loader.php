@@ -1,10 +1,10 @@
 <?php
 
-namespace App\View\Components\Button;
+namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class Warning extends Component
+class Loader extends Component
 {
     /**
      * Create a new component instance.
@@ -23,6 +23,6 @@ class Warning extends Component
      */
     public function render()
     {
-        return view('components.button.warning');
+        return view('components.loader');
     }
 }

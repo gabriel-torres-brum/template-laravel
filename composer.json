@@ -13,7 +13,9 @@
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
         "livewire/livewire": "^2.10",
-        "usernotnull/tall-toasts": "^1.5"
+        "power-components/livewire-powergrid": "^3.2",
+        "usernotnull/tall-toasts": "^1.5",
+        "wireui/wireui": "^1.13"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",

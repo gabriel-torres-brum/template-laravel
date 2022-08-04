@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\App\Roles;
+namespace App\Http\Livewire;
 
 use App\Models\Role;
 use Livewire\Component;
@@ -25,7 +25,7 @@ class ListRoles extends Component
 
     public function render()
     {
-        return view('livewire.app.roles.list-roles', ['roles' => $this->roles]);
+        return view('livewire.list-roles', ['roles' => $this->roles]);
     }
 
     public function getRolesProperty()

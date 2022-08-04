@@ -1,17 +1,29 @@
-<div x-data="{ show: @entangle('show') }">
-    <div x-cloak x-show="show" x-transition.opacity.200ms class="fixed inset-0 z-40 flex items-end justify-center bg-base-300/20 backdrop-blur-md sm:items-center">
-        <div class="w-full h-full max-w-sm p-4 border rounded-md shadow-lg bg-base-200 border-base-300 max-h-56">
-            <div class="flex flex-col h-full">
-                <span class="text-sm font-bold">{{ $title }}</span>
-                <form wire:submit.prevent='edit'>
-                </form>
-                <div class="flex justify-between mt-auto">
-                    <button x-on:click="show = false" wire:click="hide">Cancelar</button>
-                    <button wire:loading.class='loading' type="submit" class="rounded-md btn btn-warning btn-sm">
-                        @if ($itemId) Editar @else Incluir @endif
-                    </button>
-                </div>
-            </div>
+<x-modal wire:model='show'>
+    <div class="relative flex flex-col h-full p-2">
+        @if ($modelName)
+            <x-dynamic-component
+                :item="$item"
+                :component="'forms.edit-'.strtolower($modelName).'-form'"
+            />
+        @endif
+        <div class="flex justify-around mt-auto">
+            <x-button.link x-on:click="show = false">
+                Cancelar
+            </x-button.link>
+            <x-button.contained
+                variant="danger"
+                wire:loading.attr='disabled'
+                class="w-28"
+                wire:click="update"
+            >
+                <x-antdesign-loading-o
+                    class="hidden w-6 h-6 animate-spin"
+                    wire:loading.class.remove='hidden'
+                />
+                <span wire:loading.class='hidden'>
+                    Confirmar
+                </span>
+            </x-button.contained>
         </div>
     </div>
-</div>
+</x-modal>

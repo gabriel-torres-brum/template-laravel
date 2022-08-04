@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\App\Members;
+namespace App\Http\Livewire;
 
 use App\Models\Member;
 use Livewire\Component;
@@ -12,33 +12,46 @@ class ListMembers extends Component
     use WithPagination;
     use WireToast;
 
+    // Search
     public string $search = '';
     protected $queryString = ['search'];
 
+    // Select Rows
     public $selectedRows = [];
     public $selectAllRows = false;
     public $selectAll = false;
 
+    // Sorting
     public $sortField;
     public $sortDirection = 'asc';
 
+    // Listeners
     public $listeners = [
-        'resetTable' => 'resetTable'
+        'reset-table' => 'resetTable'
     ];
 
     public function render()
     {
-        return view('livewire.app.members.list-members', ['members' => $this->members]);
+        return view('livewire.list-members', ['members' => $this->members]);
     }
 
     public function sortBy($field)
     {
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortDirection = 'asc';
+        }
+        
         $this->sortField = $field;
     }
 
     public function getMembersProperty()
     {
-        return $this->membersQuery->orderBy($this->sortField, $this->sortDirection)->paginate(5);
+        if ($this->sortField) {
+            return $this->membersQuery->orderBy($this->sortField, $this->sortDirection)->paginate(5);
+        }
+        return $this->membersQuery->paginate(5);
     }
 
     public function getMembersQueryProperty()
@@ -54,7 +67,7 @@ class ListMembers extends Component
             ->orWhereRelation('user', 'email', 'like', "%{$this->search}%")
             ->orWhereRelation('role', 'description', 'like', "%{$this->search}%")
             ->orWhereRelation('church', 'church_name', 'like', "%{$this->search}%");
-
+            
         return $query;
     }
 

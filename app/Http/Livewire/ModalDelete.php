@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Modals;
+namespace App\Http\Livewire;
 
 use Livewire\Component;
 use Usernotnull\Toast\Concerns\WireToast;
@@ -19,10 +19,16 @@ class ModalDelete extends Component
         'modal-delete' => 'show'
     ];
 
-    public function show(string $model, string $title, string | array $item)
+    public function show(string $model, string | array $item)
     {
         $this->model = "\\App\\Models\\$model";
-        $this->title = $title;
+        
+        if (is_array($item)) {
+            $this->title = "Deseja realmente excluir " . count($item) . " registros do sistema?";
+        } else {
+            $this->title = "Deseja realmente excluir esse registro do sistema?";
+        }
+
         $this->item = $item;
         $this->show = true;
     }
@@ -31,7 +37,7 @@ class ModalDelete extends Component
     {
         $this->show = false;
         
-        $this->emit('resetTable');
+        $this->emit('reset-table');
     }
     
     public function delete()
@@ -49,6 +55,6 @@ class ModalDelete extends Component
 
     public function render()
     {
-        return view('livewire.modals.modal-delete');
+        return view('livewire.modal-delete');
     }
 }

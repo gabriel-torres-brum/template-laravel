@@ -1,3 +1,3 @@
-<button {{ $attributes->merge(['class' => 'flex items-center justify-center gap-2 font-medium tracking-wide text-white transition duration-200 transform bg-transparent text-blue-500 hover:text-blue-600 focus:outline-none text-sm active:scale-[95%]']) }}>
+<button {{ $attributes->merge(['class' => "inline-flex items-center justify-center gap-1 font-medium tracking-wide transition-colors duration-200 transform text-$color-500 hover:text-$color-600 hover:underline bg-transparent appearance-none focus:outline-none"]) }}>
   {{ $slot }}
 </button>

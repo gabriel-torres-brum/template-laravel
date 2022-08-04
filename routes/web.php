@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Livewire\App\Dashboard;
-use App\Http\Livewire\App\Members\ListMembers;
-use App\Http\Livewire\App\Roles\ListRoles;
+use App\Http\Livewire\Dashboard;
+use App\Http\Livewire\ListMembers;
+use App\Http\Livewire\ListRoles;
 use App\Http\Livewire\Login;
 use Illuminate\Support\Facades\Route;
 

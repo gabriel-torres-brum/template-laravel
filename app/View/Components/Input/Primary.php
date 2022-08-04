@@ -7,7 +7,7 @@ use Illuminate\View\Component;
 class Primary extends Component
 {
     public string $field;
-    public string $label;
+    public string | null $label;
     public string $type;
     public string | null $placeholder;
     public bool $required;
@@ -17,7 +17,7 @@ class Primary extends Component
      *
      * @return void
      */
-    public function __construct($field, $label, $type = "text", $placeholder = null, $required = false)
+    public function __construct($field, $label = null, $type = "text", $placeholder = null, $required = false)
     {
         $this->field = $field;
         $this->label = $label;

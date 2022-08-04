@@ -1,19 +1,21 @@
 <?php
 
-namespace App\View\Components\Button;
+namespace App\View\Components\Forms;
 
 use Illuminate\View\Component;
 
-class Danger extends Component
+class EditMemberForm extends Component
 {
+    public $item;
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($item)
     {
-        //
+        $this->item = $item;
     }
 
     /**
@@ -23,6 +25,6 @@ class Danger extends Component
      */
     public function render()
     {
-        return view('components.button.danger');
+        return view('components.forms.edit-member-form');
     }
 }

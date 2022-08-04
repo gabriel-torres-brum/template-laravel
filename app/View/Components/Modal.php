@@ -1,10 +1,10 @@
 <?php
 
-namespace App\View\Components\Button;
+namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class Info extends Component
+class Modal extends Component
 {
     /**
      * Create a new component instance.
@@ -23,6 +23,6 @@ class Info extends Component
      */
     public function render()
     {
-        return view('components.button.info');
+        return view('components.modal');
     }
 }

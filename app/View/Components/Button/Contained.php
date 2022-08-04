@@ -4,7 +4,7 @@ namespace App\View\Components\Button;
 
 use Illuminate\View\Component;
 
-class Link extends Component
+class Contained extends Component
 {
     public string $color;
     /**
@@ -40,6 +40,6 @@ class Link extends Component
      */
     public function render()
     {
-        return view('components.button.link');
+        return view('components.button.contained');
     }
 }

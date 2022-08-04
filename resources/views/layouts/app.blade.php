@@ -9,7 +9,8 @@
     <title>@stack('pagetitle')</title>
 
     @livewireStyles
-    @toastScripts
+    @powerGridScripts
+    {{-- @toastScripts --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script>
         if (localStorage._x_darkMode === 'true' || (!('_x_darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -68,7 +69,8 @@
     {{ $slot }}
     @endguest
     @livewireScripts
-    <livewire:modals.modal-delete />
+    {{-- <livewire:modal-delete />
+    <livewire:modal-edit /> --}}
 </body>
 
 </html>

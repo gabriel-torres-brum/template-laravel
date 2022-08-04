@@ -1,14 +1,13 @@
 <?php
 
-namespace App\View\Components\Inputs;
+namespace App\View\Components\Select;
 
 use Illuminate\View\Component;
 
-class InputPrimary extends Component
+class Primary extends Component
 {
     public string $field;
-    public string $label;
-    public string $type;
+    public string | null $label;
     public string | null $placeholder;
     public bool $required;
 
@@ -17,11 +16,10 @@ class InputPrimary extends Component
      *
      * @return void
      */
-    public function __construct($field, $label, $type = "text", $placeholder = null, $required = false)
+    public function __construct($field, $label = null, $placeholder = null, $required = false)
     {
         $this->field = $field;
         $this->label = $label;
-        $this->type = $type;
         $this->placeholder = $placeholder;
         $this->required = $required;
     }
@@ -33,6 +31,6 @@ class InputPrimary extends Component
      */
     public function render()
     {
-        return view('components.inputs.input-primary');
+        return view('components.select.primary');
     }
 }

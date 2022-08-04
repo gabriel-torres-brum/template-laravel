@@ -1,7 +1,5 @@
-<div x-data="{ show: @entangle($attributes->wire('model')) }">
-  <div x-cloak x-show="show" x-transition.opacity.200ms class="fixed inset-0 z-40 flex items-end justify-center bg-transparent backdrop-blur-sm sm:items-center">
-      <div class="w-full h-full max-w-sm p-4 bg-white border rounded-md shadow-lg border-gray-100 max-h-56">
-        {{ $slot }}
-      </div>
-  </div>
+<div x-data="{ show: @entangle($attributes->wire('model')) }" x-cloak x-show="show" @keyup.escape.window="show = false" x-transition.opacity.200ms class="fixed inset-0 z-40 flex items-end justify-center border bg-gray-200/40 backdrop-blur-sm sm:items-center border-gray-200/60">
+    <div class="w-full p-6 bg-white border border-gray-100 rounded-md shadow-lg sm:max-w-sm md:max-w-md lg:max-w-lg min-h-72">
+      {{ $slot }}
+    </div>
 </div>

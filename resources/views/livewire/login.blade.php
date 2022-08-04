@@ -36,10 +36,10 @@
                         </div>
 
                         <div class="mt-6">
-                            <x-button.info type="submit" class="w-full" wire:loading.attr='disabled'>
+                            <x-button.contained variant="info" type="submit" class="w-full" wire:loading.attr='disabled'>
                                 <x-antdesign-loading-3-quarters-o wire:loading.class="!inline" class="hidden w-6 h-6 animate-spin" />
                                 <span wire:loading.class='hidden'>Entrar</span>
-                            </x-button.info>
+                            </x-button.contained>
                         </div>
 
                     </form>
