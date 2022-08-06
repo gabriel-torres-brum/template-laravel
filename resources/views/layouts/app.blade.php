@@ -47,15 +47,15 @@
         </div>
         <div x-data="{ dropdown: false }" class="relative">
             <button x-on:click="dropdown = !dropdown" class="p-1 transition-transform bg-gray-200 rounded-full w-7 h-7 active:scale-95">
-                <x-antdesign-user-o class="w-full h-full" />
+                <x-icon name="user" class="w-5 h-5" />
             </button>
             <div x-cloak x-show="dropdown" x-on:click.away="dropdown = false" class="absolute flex flex-col mt-6 text-sm bg-white rounded shadow -ml-28 w-36 after:rotate-45 after:bg-white after:absolute after:-top-2 after:right-2 after:-z-10 after:w-4 after:h-4 after:shadow">
                 <a class="relative inline-flex flex-1 p-3 transition-colors hover:bg-gray-100" href="javascript:void(0)">
-                    <x-antdesign-setting-o class="absolute left-0 w-5 h-5 ml-2.5" />
+                    <x-icon name="cog" class="absolute left-0 w-5 h-5 ml-2.5" />
                     <span class="ml-6">Configurações</span>
                 </a>
                 <a href="{{ route('logout') }}" class="relative inline-flex flex-1 p-3 transition-colors hover:bg-gray-100" href="javascript:void(0)">
-                    <x-antdesign-logout-o class="absolute left-0 w-5 h-5 ml-2.5" />
+                    <x-icon name="logout" class="absolute left-0 w-5 h-5 ml-2.5" />
                     <span class="ml-6">Sair</span>
                 </a>
             </div>
