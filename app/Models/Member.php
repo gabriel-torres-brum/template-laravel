@@ -11,7 +11,6 @@ class Member extends Model
 
     protected $fillable = [
         'name',
-        'email',
         'gender',
         'birthday',
         'tither',
@@ -21,20 +20,22 @@ class Member extends Model
     ];
 
     protected $casts = [
-        'birthday' => 'date_immutable',
+        'birthday' => 'date',
     ];
 
     public function rules()
     {
         return [
             'item.name' => 'required|max:50',
-            'item.email' => 'required|email|max:50',
             'item.gender' => 'required',
             'item.birthday' => 'required|date|min:10|max:10',
             'item.tither' => 'required',
             'item.user_id' => 'required|exists:users,id',
             'item.role_id' => 'exists:roles,id',
-            'item.church_id' => 'required|exists:church,id'
+            'item.church_id' => 'required|exists:church,id',
+            'item.user.username' => 'required|max:50',
+            'item.user.email' => 'required|max:50',
+            'item.user.admin' => 'required|max:50',
         ];
     }
 

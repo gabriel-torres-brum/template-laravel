@@ -7,11 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@stack('pagetitle')</title>
-
-    @livewireStyles
-    @powerGridScripts
-    {{-- @toastScripts --}}
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    
     <script>
         if (localStorage._x_darkMode === 'true' || (!('_x_darkMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add("dark")
@@ -19,10 +15,17 @@
             document.documentElement.classList.remove("dark")
         }
     </script>
+    
+    @livewireStyles
+    {{-- @toastScripts --}}
+    @wireUiScripts
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body>
-    <livewire:toasts />
+    <x-notifications />
+    <x-dialog id="delete" z-index="z-40" align="center" />
+    {{-- <livewire:toasts /> --}}
     {{-- @include('layouts.preloader') --}}
     @auth
     <header class="fixed inset-x-0 top-0 z-30 flex items-center justify-between w-full h-16 px-6 bg-white shadow">
@@ -69,8 +72,7 @@
     {{ $slot }}
     @endguest
     @livewireScripts
-    {{-- <livewire:modal-delete />
-    <livewire:modal-edit /> --}}
+    <livewire:modal-edit />
 </body>
 
 </html>

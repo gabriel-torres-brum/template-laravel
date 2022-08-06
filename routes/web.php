@@ -35,7 +35,6 @@ Route::middleware('auth')->group(function () {
     });
     Route::get('logout', function () {
         auth()->logout();
-        toast()->info('Sessão encerrada')->pushOnNextPage();
         return redirect()->route('login');
     })->name('logout');
 });

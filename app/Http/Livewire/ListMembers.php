@@ -5,12 +5,12 @@ namespace App\Http\Livewire;
 use App\Models\Member;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Usernotnull\Toast\Concerns\WireToast;
+use WireUi\Traits\Actions;
 
 class ListMembers extends Component
 {
     use WithPagination;
-    use WireToast;
+    use Actions;
 
     // Search
     public string $search = '';
@@ -35,6 +35,26 @@ class ListMembers extends Component
         return view('livewire.list-members', ['members' => $this->members]);
     }
 
+    public function edit($id)
+    {
+        $this->emit('modal-edit', 'Member', $id, ['user', 'role', 'church']);
+    }
+
+    public function delete($id = null)
+    {
+        if ($id) {
+            Member::find($id)->delete();
+        } else {
+            Member::whereIn('id', $this->selectedRows)->delete();
+        }
+
+        $this->resetTable();
+
+        $this->notification()->success(
+            $title = 'Excluído com sucesso!',
+        );
+    }
+
     public function sortBy($field)
     {
         if ($this->sortField === $field) {
@@ -42,7 +62,7 @@ class ListMembers extends Component
         } else {
             $this->sortDirection = 'asc';
         }
-        
+
         $this->sortField = $field;
     }
 
@@ -67,7 +87,7 @@ class ListMembers extends Component
             ->orWhereRelation('user', 'email', 'like', "%{$this->search}%")
             ->orWhereRelation('role', 'description', 'like', "%{$this->search}%")
             ->orWhereRelation('church', 'church_name', 'like', "%{$this->search}%");
-            
+
         return $query;
     }
 
@@ -111,7 +131,6 @@ class ListMembers extends Component
         $this->selectedRows = [];
         $this->selectAllRows = false;
         $this->selectAll = false;
-        $this->showModalDelete = false;
         $this->resetPage();
     }
 

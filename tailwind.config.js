@@ -4,24 +4,26 @@ module.exports = {
     content: [
         "./resources/**/*.blade.php",
         "./resources/**/*.js",
-        "./resources/**/*.vue",
-        // './vendor/usernotnull/tall-toasts/config/**/*.php',
-        // './vendor/usernotnull/tall-toasts/resources/views/**/*.blade.php',
-    ],
-    safelist: [
-        {
-            pattern: /(bg|text)-(red|green|blue|amber)-(500|600)/,
-            variants: ['hover']
-        },
-        {
-            pattern: /(ring)-(red|green|blue|amber)-400/,
-            variants: ['focus']
-        },
+        './vendor/usernotnull/tall-toasts/config/**/*.php',
+        './vendor/usernotnull/tall-toasts/resources/views/**/*.blade.php',
+        './vendor/wireui/wireui/resources/**/*.blade.php',
+        './vendor/wireui/wireui/ts/**/*.ts',
+        './vendor/wireui/wireui/src/View/**/*.php',
     ],
     theme: {
         extend: {},
     },
+    corePlugins: {
+        aspectRatio: false,
+    },
+    presets: [
+        require('./vendor/wireui/wireui/tailwind.config.js')
+    ],
     plugins: [
-        require('@tailwindcss/forms')
+        require("@tailwindcss/forms")({
+            strategy: 'class',
+        }),
+        require('@tailwindcss/aspect-ratio'),
+        require('@tailwindcss/typography'),
     ]
 };

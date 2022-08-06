@@ -1,29 +1,62 @@
-<div class="flex flex-col gap-2">
+<div class="flex flex-col gap-2 p-2">
   <span class="flex-1 text-lg font-bold">
-      @if ($item)
-      Editando informações de {{ $item->name }}
-      @else
-      Incluir membro
-      @endif
+    @if ($item)
+    Editando informações de {{ $item->name }}
+    @else
+    Incluir membro
+    @endif
   </span>
-  <div class="grid grid-cols-12 gap-2">
+  <div class="grid grid-cols-12 gap-4">
     <div class="col-span-12">
-      <x-input.primary field="name" label="Nome" type="text" wire:model.lazy="item.name"  class="w-full" />
+      <x-input label="Nome" wire:model.lazy="item.name" />
     </div>
-    <div class="col-span-6">
-      <x-input.primary field="birthday" label="Aniversário" type="text" x-mask="99/99/9999" class="w-full" wire:model.lazy="item.birthday" wire:change="$set('item.birthday', item.birthday->format('d/m/Y'))" />
+    <div class="col-span-12 sm:col-span-6">
+      <x-datetime-picker
+        label="Data de nascimento"
+        wire:model.lazy="item.birthday"
+        parse-format="YYYY-MM-DD"
+        display-format="DD/MM/YYYY"
+      />
     </div>
-    <div class="col-span-6">
-      <x-select.primary field="gender" label="Gênero" type="text" class="w-full" wire:model.lazy="item.gender">
-          <option value="Masculino">Masculino</option>
-          <option value="Feminino">Feminino</option>
-      </x-select.primary>
+    <div class="col-span-12 sm:col-span-6">
+      <x-native-select
+        label="Gênero"
+        :options="['Masculino', 'Feminino']"
+        wire:model="item.gender"
+      />
     </div>
-    <div class="col-span-6">
-      <x-select.primary field="tither" label="Dizimista?" type="text" class="w-full" wire:model.lazy="item.tither">
-        <option value="0">Não</option>
-        <option value="1">Sim</option>
-    </x-select.primary>
+    <div class="col-span-12">
+      <x-toggle left-label="Dizimista" wire:model.lazy="item.tither" />
+    </div>
+    <div class="col-span-12 sm:col-span-6">
+      <x-native-select
+        label="Cargo"
+        :options="$roles"
+        option-label="name"
+        option-value="id"
+        wire:model="item.role_id"
+      />
+    </div>
+    <div class="col-span-12 sm:col-span-6">
+      <x-native-select
+        label="Igreja"
+        :options="$churchs"
+        option-label="name"
+        option-value="id"
+        wire:model="item.church_id"
+      />
+    </div>
+  </div>
+  <x-divider>Dados de Usuário</x-divider>
+  <div class="grid grid-cols-12 gap-4">
+    <div class="col-span-12">
+      <x-input label="Usuário" wire:model.lazy="item.user.username" />
+    </div>
+    <div class="col-span-12">
+      <x-input label="E-mail" wire:model.lazy="item.user.email" />
+    </div>
+    <div class="col-span-12">
+      <x-toggle left-label="Administrador" wire:model.lazy="item.user.admin" />
     </div>
   </div>
 </div>
