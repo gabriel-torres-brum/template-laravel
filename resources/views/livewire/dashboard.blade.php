@@ -1,4 +1,4 @@
 @push('pagetitle', 'Dashboard')
 <div>
-    {{-- <livewire:member-table/> --}}
+    <h4 class="text-lg">Olá, {{ $user }}</h2>
 </div>

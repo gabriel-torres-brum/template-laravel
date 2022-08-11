@@ -16,50 +16,42 @@ class RoleSeeder extends Seeder
     public function run()
     {
         Role::factory()->create([
-            'role_name' => 'member',
-            'description' => 'Membro',
+            'role_name' => 'Membro',
             'gender' => 'Ambos'
         ]);
 
         Role::factory()->create([
-            'role_name' => 'workerM',
-            'description' => 'Obreiro',
+            'role_name' => 'Obreiro',
             'gender' => 'Masculino'
         ]);
 
         Role::factory()->create([
-            'role_name' => 'deacon',
-            'description' => 'Diácono',
+            'role_name' => 'Diácono',
             'gender' => 'Masculino'
         ]);
 
         Role::factory()->create([
-            'role_name' => 'presbyter',
-            'description' => 'Presbítero',
+            'role_name' => 'Presbítero',
             'gender' => 'Masculino'
         ]);
 
         Role::factory()->create([
-            'role_name' => 'evangelist',
-            'description' => 'Evangelista',
+            'role_name' => 'Evangelista',
             'gender' => 'Masculino'
         ]);
 
         Role::factory()->create([
-            'role_name' => 'pastor',
-            'description' => 'Pastor',
+            'role_name' => 'Pastor',
             'gender' => 'Masculino'
         ]);
 
         Role::factory()->create([
-            'role_name' => 'workerF',
-            'description' => 'Obreira',
+            'role_name' => 'Obreira',
             'gender' => 'Feminino'
         ]);
 
         Role::factory()->create([
-            'role_name' => 'missionary',
-            'description' => 'Missionária',
+            'role_name' => 'Missionária',
             'gender' => 'Feminino'
         ]);
     }

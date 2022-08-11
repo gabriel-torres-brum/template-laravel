@@ -37,7 +37,7 @@ class ListMembers extends Component
 
     public function edit($id)
     {
-        $this->emit('modal-edit', 'Member', $id, ['user', 'role', 'church']);
+        $this->emit('modal-edit', $id);
     }
 
     public function delete($id = null)
@@ -85,15 +85,15 @@ class ListMembers extends Component
         $query->orWhere('name', 'like', "%{$this->search}%")
             ->orWhere('gender', 'like', "%{$this->search}%")
             ->orWhereRelation('user', 'email', 'like', "%{$this->search}%")
-            ->orWhereRelation('role', 'description', 'like', "%{$this->search}%")
+            ->orWhereRelation('role', 'role_name', 'like', "%{$this->search}%")
             ->orWhereRelation('church', 'church_name', 'like', "%{$this->search}%");
 
         return $query;
     }
 
-    public function isChecked($memberId)
+    public function isChecked($id)
     {
-        return in_array($memberId, $this->selectedRows);
+        return in_array($id, $this->selectedRows);
     }
 
     public function selectAll()

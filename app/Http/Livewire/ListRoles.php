@@ -5,22 +5,29 @@ namespace App\Http\Livewire;
 use App\Models\Role;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Usernotnull\Toast\Concerns\WireToast;
+use WireUi\Traits\Actions;
 
 class ListRoles extends Component
 {
     use WithPagination;
-    use WireToast;
+    use Actions;
 
+    // Search
     public string $search = '';
     protected $queryString = ['search'];
 
+    // Select Rows
     public $selectedRows = [];
     public $selectAllRows = false;
     public $selectAll = false;
 
+    // Sorting
+    public $sortField;
+    public $sortDirection = 'asc';
+
+    // Listeners
     public $listeners = [
-        'resetTable' => 'resetTable'
+        'reset-table' => 'resetTable'
     ];
 
     public function render()
@@ -28,8 +35,42 @@ class ListRoles extends Component
         return view('livewire.list-roles', ['roles' => $this->roles]);
     }
 
+    public function edit($id)
+    {
+        $this->emit('modal-edit', 'Role', $id, ['members']);
+    }
+
+    public function delete($id = null)
+    {
+        if ($id) {
+            Role::find($id)->delete();
+        } else {
+            Role::whereIn('id', $this->selectedRows)->delete();
+        }
+
+        $this->resetTable();
+
+        $this->notification()->success(
+            $title = 'Excluído com sucesso!',
+        );
+    }
+
+    public function sortBy($field)
+    {
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        } else {
+            $this->sortDirection = 'asc';
+        }
+
+        $this->sortField = $field;
+    }
+
     public function getRolesProperty()
     {
+        if ($this->sortField) {
+            return $this->rolesQuery->orderBy($this->sortField, $this->sortDirection)->paginate(5);
+        }
         return $this->rolesQuery->paginate(5);
     }
 
@@ -37,16 +78,16 @@ class ListRoles extends Component
     {
         $query = Role::query();
 
-        $query->orWhere('description', 'like', "%{$this->search}%")
-            ->orWhere('gender', 'like', "%{$this->search}%")
-            ->orWhere('role_name', 'like', "%{$this->search}%");
+        $query->orWhere('role_name', 'like', "%{$this->search}%")
+            ->orWhere('description', 'like', "%{$this->search}%")
+            ->orWhere('gender', 'like', "%{$this->search}%");
 
         return $query;
     }
 
-    public function isChecked($roleId)
+    public function isChecked($id)
     {
-        return in_array($roleId, $this->selectedRows);
+        return in_array($id, $this->selectedRows);
     }
 
     public function selectAll()
@@ -84,7 +125,6 @@ class ListRoles extends Component
         $this->selectedRows = [];
         $this->selectAllRows = false;
         $this->selectAll = false;
-        $this->showModalDelete = false;
         $this->resetPage();
     }
 

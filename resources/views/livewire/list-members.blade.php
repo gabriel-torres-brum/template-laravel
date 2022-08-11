@@ -1,10 +1,14 @@
-@push('pagetitle', 'Lista de membros')
+@push('pagetitle', 'Membros')
 
-<x-table
-    model-name="Member"
-    :selected-rows="$selectedRows"
-    :select-all="$selectAll"
-    :itens="$members"
-    :itemNames="['Nome', 'Idade', 'Gênero', 'Igreja', 'Cargo']"
-    :itemValues="['name', 'birthday->age', 'gender', 'church->church_name', 'role->description']"
-/>
+<div>
+    <x-table
+        model-name="Member"
+        :selected-rows="$selectedRows"
+        :select-all="$selectAll"
+        :itens="$members"
+        :itemNames="['Nome', 'Idade', 'Gênero', 'Igreja', 'Cargo']"
+        :itemValues="['name', 'birthday->age', 'gender', 'church->church_name', 'role->role_name']"
+    />
+
+    <livewire:forms.edit-member-form />
+</div>

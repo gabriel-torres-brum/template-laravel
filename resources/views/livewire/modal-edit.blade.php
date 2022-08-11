@@ -1,7 +1,7 @@
 <x-modal wire:model="show" align="center" z-index="z-40">
     <x-card>
         @if ($modelName)
-        <x-dynamic-component :item="$item" :component="'forms.edit-'.strtolower($modelName).'-form'" />
+        @livewire('forms.edit-'.strtolower($modelName).'-form', ['item' => $item])
         @endif
         <x-slot name="footer">
             <div class="flex justify-end gap-x-4">

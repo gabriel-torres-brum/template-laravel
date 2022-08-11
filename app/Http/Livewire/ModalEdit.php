@@ -22,7 +22,7 @@ class ModalEdit extends Component
 
     public function show($modelName, $id, $relationships)
     {
-        $this->item = "\\App\\Models\\$modelName"::find($id)->load(...$relationships);
+        $this->item = "\\App\\Models\\$modelName"::find($id)->loadMissing(...$relationships);
         $this->rules = $this->item->rules();
         $this->modelName = $modelName;
         $this->show = true;
@@ -30,6 +30,8 @@ class ModalEdit extends Component
     
     public function save()
     {
+        $this->validate();
+        
         $this->show = false;
         
         if ($this->item->push()) {

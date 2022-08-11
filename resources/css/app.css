@@ -14,12 +14,11 @@
 [hidden] {
   display: none !important;
 }
-
-html,
-body {
+html {
   height: 100%;
 }
+
 body {
   font-family: Roboto, sans-serif;
-  @apply antialiased bg-zinc-50 text-zinc-700;
+  @apply min-h-screen antialiased text-slate-700 dark:text-slate-200 bg-slate-50 dark:bg-slate-900;
 }

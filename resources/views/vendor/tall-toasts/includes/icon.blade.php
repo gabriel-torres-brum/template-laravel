@@ -1,6 +1,6 @@
 <template x-if="toast.type==='debug'">
     <svg
-        class="w-8 h-8 text-gray-700"
+        class="w-8 h-8 text-slate-700"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 512 512"
     >

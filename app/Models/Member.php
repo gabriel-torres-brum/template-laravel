@@ -23,22 +23,6 @@ class Member extends Model
         'birthday' => 'date',
     ];
 
-    public function rules()
-    {
-        return [
-            'item.name' => 'required|max:50',
-            'item.gender' => 'required',
-            'item.birthday' => 'required|date|min:10|max:10',
-            'item.tither' => 'required',
-            'item.user_id' => 'required|exists:users,id',
-            'item.role_id' => 'exists:roles,id',
-            'item.church_id' => 'required|exists:church,id',
-            'item.user.username' => 'required|max:50',
-            'item.user.email' => 'required|max:50',
-            'item.user.admin' => 'required|max:50',
-        ];
-    }
-
     public function user()
     {
         return $this->belongsTo(User::class);

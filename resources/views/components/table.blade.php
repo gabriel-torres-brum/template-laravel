@@ -1,5 +1,5 @@
-<div x-data="{ selectedRows: @entangle('selectedRows'), selectAllRows: @entangle('selectAllRows') }" class="p-8 bg-white rounded-md shadow">
-  <div class="flex flex-col gap-2 registro-center sm:flex-row">
+<div x-data="{ selectedRows: @entangle('selectedRows'), selectAllRows: @entangle('selectAllRows') }" class="p-8 bg-white rounded-md shadow dark:bg-slate-800">
+  <div class="flex flex-col items-center gap-2 sm:flex-row">
     <div class="relative w-full max-w-xs">
       <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
         <x-antdesign-search-o class="w-5 h-5" />
@@ -36,12 +36,12 @@
 
     @if ($selectAll)
 
-    <span class="w-full py-2 text-zinc-700 sm:w-auto">{{ count($selectedRows) }} registros selecionados</span>
+    <span class="w-full py-2 sm:w-auto">{{ count($selectedRows) }} registros selecionados</span>
 
     @else
 
     <div class="flex flex-col items-center flex-1 gap-2 sm:flex-row">
-      <span class="w-full text-zinc-700 sm:w-auto">
+      <span class="w-full sm:w-auto">
         {{ count($selectedRows) . (count($selectedRows) === 1 ? " registro selecionado." : " registros
         selecionados.") }}
       </span>
@@ -56,24 +56,24 @@
 
     @endif
     @else
-    <span class="w-full py-2 text-zinc-700 sm:w-auto">Nenhum registro selecionado</span>
+    <span class="w-full py-2 sm:w-auto">Nenhum registro selecionado</span>
     @endif
   </div>
-  <div class="relative overflow-x-auto border-t rounded-md border-zinc-200 border-x soft-scrollbar">
+  <div class="relative overflow-x-auto border-t rounded-md border-slate-200 dark:border-slate-700 border-x soft-scrollbar">
     <table class="w-full text-sm text-left">
-      <thead class="text-xs uppercase bg-white border-b border-zinc-200">
+      <thead class="text-xs uppercase bg-white border-b border-slate-200 dark:bg-slate-800 dark:border-slate-700">
         <tr>
-          <th scope="col" class="px-6 py-4 border-r border-zinc-200">
+          <th scope="col" class="px-6 py-4 border-r border-slate-200 dark:border-slate-700">
             <div class="flex items-center">
               <x-checkbox x-model="selectAllRows" />
             </div>
           </th>
           @foreach ($itemNames as $itemName)
-          <th scope="col" class="px-6 py-4 border-r border-zinc-100">
+          <th scope="col" class="px-6 py-4 border-r border-slate-200 dark:border-slate-700">
             {{ $itemName }}
           </th>
           @endforeach
-          <th scope="col" class="px-6 py-4 text-center align-middle border-r border-zinc-100">
+          <th scope="col" class="px-4 py-4 text-center align-middle">
             Ações
           </th>
         </tr>
@@ -83,13 +83,13 @@
         <tr
           wire:key="table-item-{{ $item->id }}"
           @class([
-            'bg-zinc-50'=> !$this->isChecked($item->id),
-            'bg-blue-300' => $this->isChecked($item->id),
+            'bg-slate-50 dark:bg-slate-600'=> !$this->isChecked($item->id),
+            'bg-indigo-200 dark:bg-indigo-500' => $this->isChecked($item->id),
             'font-medium',
             'border-b',
-            'border-zinc-300'
+            'border-slate-200 dark:border-slate-700'
           ])>
-          <td class="w-4 px-6 py-4 bg-white border-r border-zinc-200">
+          <td class="w-4 px-6 py-4 bg-white border-r border-slate-200 dark:bg-slate-800 dark:border-slate-700">
             <div class="flex items-center">
               <x-checkbox
                 value="{{ $item->id }}"
@@ -98,11 +98,11 @@
             </div>
           </td>
           @foreach ($itemValues as $itemValue)
-          <td scope="row" class="px-6 py-4 border-r border-zinc-200 whitespace-nowrap">
+          <td scope="row" class="px-6 py-4 border-r border-slate-200 dark:border-slate-700 whitespace-nowrap">
             {{ eval("echo \$item->$itemValue;"); }}
           </td>
           @endforeach
-          <td class="w-10 px-6 py-4 align-middle bg-white">
+          <td class="w-10 px-6 py-4 align-middle bg-white dark:bg-slate-800">
             <div class="flex w-full gap-2.5">
               <x-button.circle
                 icon="pencil-alt"
@@ -135,7 +135,7 @@
           </td>
         </tr>
         @empty
-        <tr class='font-medium border-b bg-zinc-700-100 text-zinc-700-content border-zinc-700-300'>
+        <tr class='font-medium border-b border-slate-200 bg-slate-50 dark:border-slate-700 dark:bg-slate-600'>
           <td colspan='100%' class='px-6 py-4 text-center'>
             Nenhum item encontrado.
           </td>

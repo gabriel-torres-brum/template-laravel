@@ -12,6 +12,13 @@ class EditMemberForm extends Component
     public $roles;
     public $churchs;
 
+    public bool $showPhones = false;
+    public $phones = [];
+    public int $countPhones = 0;
+
+    public bool $showAddresses = false;
+    public $addresses = [];
+    public int $countAddresses = 0;
     /**
      * Create a new component instance.
      *
@@ -20,17 +27,40 @@ class EditMemberForm extends Component
     public function __construct($item)
     {
         $this->item = $item;
+
         $this->roles = $this->getRolesSelectArray();
         $this->churchs = $this->getChurchsSelectArray();
     }
 
+    public function addPhone()
+    {
+        $this->countPhones++;
+        array_push($this->phones, $this->countPhones);
+    }
+
+    public function removePhone($key)
+    {
+        unset($this->phones[$key]);
+    }
+
+    public function addAddress()
+    {
+        $this->countAddresses++;
+        array_push($this->addresses, $this->countAddresses);
+    }
+
+    public function removeAddress($key)
+    {
+        unset($this->addresses[$key]);
+    }
+
     protected function getRolesSelectArray()
     {
-        $roles = Role::where('gender', $this->item->gender)->pluck('id', 'description');
+        $roles = Role::whereIn('gender', [$this->item->gender, 'Ambos'])->pluck('id', 'role_name');
         $rolesArray = [];
-        foreach($roles as $description => $id) {
+        foreach($roles as $role_name => $id) {
             $rolesArray[] = [
-                'name' => $description,
+                'name' => $role_name,
                 'id' => $id
             ];
         }
