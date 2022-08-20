@@ -23,7 +23,6 @@ class MemberFactory extends Factory
             'name'      => fake()->name(),
             'gender'    => fake()->randomElement(['Masculino', 'Feminino']),
             'birthday'  => fake()->dateTimeBetween('1950-01-01', '2021-12-31'),
-            // ->format('d/m/Y')
             'tither'    => fake()->boolean(),
             'user_id'   => User::factory(),
             'role_id'   => Role::all()->where('gender', 'Masculino')->random()->id,

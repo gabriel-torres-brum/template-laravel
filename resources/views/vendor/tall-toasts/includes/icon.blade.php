@@ -1,6 +1,6 @@
 <template x-if="toast.type==='debug'">
     <svg
-        class="w-8 h-8 text-slate-700"
+        class="h-8 w-8 text-zinc-700"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 512 512"
     >
@@ -14,7 +14,7 @@
 
 <template x-if="toast.type==='info'">
     <svg
-        class="w-8 h-8 text-blue-700"
+        class="h-8 w-8 text-blue-700"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 192 512"
     >
@@ -32,7 +32,7 @@
 
 <template x-if="toast.type==='success'">
     <svg
-        class="w-8 h-8 text-green-700"
+        class="h-8 w-8 text-green-700"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 512 512"
     >
@@ -45,7 +45,7 @@
 
 <template x-if="toast.type==='warning'">
     <svg
-        class="w-8 h-8 text-yellow-700"
+        class="h-8 w-8 text-yellow-700"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 192 512"
     >
@@ -63,7 +63,7 @@
 
 <template x-if="toast.type==='danger'">
     <svg
-        class="w-8 h-8 text-red-700"
+        class="h-8 w-8 text-red-700"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 576 512"
     >

@@ -6,25 +6,16 @@ use Illuminate\View\Component;
 
 class Table extends Component
 {
-    public string $modelName;
-    public $selectedRows;
-    public $selectAll;
-    public $itens;
-    public array $itemNames;
-    public array $itemValues;
+    public array $options;
+
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($modelName, $selectedRows, $selectAll, $itens, $itemNames, $itemValues)
+    public function __construct($options)
     {
-        $this->modelName = $modelName;
-        $this->selectedRows = $selectedRows;
-        $this->selectAll = $selectAll;
-        $this->itens = $itens;
-        $this->itemNames = $itemNames;
-        $this->itemValues = $itemValues;
+        $this->options = $options;
     }
 
     /**

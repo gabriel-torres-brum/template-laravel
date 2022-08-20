@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Address extends Model
 {
     use HasFactory;
-
+    
     protected $fillable = [
+        'id',
         'address_name',
         'number',
         'adjunct',
@@ -18,6 +19,7 @@ class Address extends Model
         'state',
         'cep',
         'member_id',
+        'created_at'
     ];
 
     public function member()

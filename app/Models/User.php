@@ -47,4 +47,11 @@ class User extends Authenticatable
     {
         return $this->hasOne(Member::class);
     }
+
+    public function getNameOfUser()
+    {
+        $user = $this->find(auth()->user()->id);
+
+        return $user->member->name ?? $user->username;
+    }
 }

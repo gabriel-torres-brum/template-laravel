@@ -2,10 +2,12 @@
 
 namespace App\View\Components;
 
+use App\Models\Menu;
 use Illuminate\View\Component;
 
 class Sidebar extends Component
 {
+    public $menu;
     /**
      * Create a new component instance.
      *
@@ -13,7 +15,7 @@ class Sidebar extends Component
      */
     public function __construct()
     {
-        //
+        $this->menu = (new Menu)->getMenuForUser('sidebar');
     }
 
     /**

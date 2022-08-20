@@ -1,7 +1,14 @@
-<aside :class="{ '-translate-x-72': !sidebar }" class="fixed bottom-0 left-0 z-10 flex flex-col w-48 p-2 transition-transform bg-white border-r shadow dark:bg-slate-800 top-16 border-slate-200 dark:border-slate-700">
+<aside
+    :class="{ '-translate-x-72': !sidebar }"
+    class="fixed bottom-0 left-0 top-16 z-10 flex w-48 flex-col border-r border-zinc-200 bg-white p-2 shadow transition-transform dark:border-zinc-700 dark:bg-zinc-800"
+>
     <ul class="flex flex-col gap-2">
-        <x-navlink icon="home" route="app.dashboard" label="Painel" />
-        <x-navlink icon="users" route="app.members-list" label="Membros" />
-        <x-navlink icon="identification" route="app.roles-list" label="Cargos" />
+        @foreach ($menu as $item)
+            <x-navlink
+                icon="{{ $item->icon }}"
+                route="{{ $item->route }}"
+                label="{{ $item->label }}"
+            />
+        @endforeach
     </ul>
 </aside>

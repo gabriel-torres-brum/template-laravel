@@ -47,4 +47,14 @@ class Member extends Model
     {
         return $this->hasMany(Phone::class);
     }
+
+    public static function boot() {
+        parent::boot();
+
+        static::deleting(function($member) {
+            $member->phones()->delete();
+            $member->addresses()->delete();
+            // $member->user()->delete();
+        });
+    }
 }

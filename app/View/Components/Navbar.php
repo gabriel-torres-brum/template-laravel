@@ -2,10 +2,12 @@
 
 namespace App\View\Components;
 
+use App\Models\User;
 use Illuminate\View\Component;
 
 class Navbar extends Component
 {
+    public string $nameOfUser;
     /**
      * Create a new component instance.
      *
@@ -13,7 +15,7 @@ class Navbar extends Component
      */
     public function __construct()
     {
-        //
+        $this->nameOfUser = (new User)->getNameOfUser();
     }
 
     /**
