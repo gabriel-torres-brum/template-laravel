@@ -1,17 +1,15 @@
 <?php
 
-namespace App\Http\Livewire\Members;
+namespace App\Http\Livewire\Churches;
 
-use App\Models\Member;
+use App\Models\Church;
 use Livewire\Component;
 use Livewire\WithPagination;
-use PowerComponents\LivewirePowerGrid\Traits\WithSorting;
 use WireUi\Traits\Actions;
 
 class Index extends Component
 {
     use Actions;
-    use WithSorting;
     use WithPagination;
 
     // Search
@@ -28,8 +26,8 @@ class Index extends Component
 
     // Listeners
     public $listeners = [
-        'members::index::refresh' => '$refresh',
-        'members::index::reset-table' => 'resetTable'
+        'churches::index::refresh' => '$refresh',
+        'churches::index::reset-table' => 'resetTable'
     ];
 
     public function render()
@@ -37,71 +35,58 @@ class Index extends Component
         $this->tableOptions = [
             'selectedRows' => $this->selectedRows,
             'selectAll' => $this->selectAll,
-            'collection' => $this->members,
+            'collection' => $this->churches,
             'titles' => [
-                'Nome',
-                'Idade',
-                'Gênero',
                 'Igreja',
-                'Cargo'
+                'Qtd Membros'
             ],
             'values' => [
-                'name',
-                'birthday->age',
-                'gender',
-                'church->church_name',
-                'role->role_name'
+                'church_name',
+                'members->count()',
             ]
         ];
 
-        return view('livewire.members.index', [
+        return view('livewire.churches.index', [
             'tableOptions' => $this->tableOptions
         ]);
     }
 
     public function showCreateForm()
     {
-        $this->emit('members::create');
+        $this->emit('churches::create');
     }
     
     public function edit($id)
     {
-        $this->emit('members::update', $id);
+        $this->emit('churches::update', $id);
     }
 
     public function delete($id = null)
     {
         if ($id) {
-            Member::find($id)->delete();
+            Church::find($id)->delete();
         } else {
-            Member::whereIn('id', $this->selectedRows)->delete();
+            Church::whereIn('id', $this->selectedRows)->delete();
         }
 
         $this->resetTable();
 
         $this->notification()->success(
-            $title = 'Excluído com sucesso!',
+            $title = 'Igreja excluída com sucesso!',
         );
     }
 
-    public function getMembersProperty()
+    public function getChurchesProperty()
     {
-        return $this->membersQuery->paginate(5);
+        return $this->churchesQuery->paginate(5);
     }
 
-    public function getMembersQueryProperty()
+    public function getChurchesQueryProperty()
     {
-        $query = Member::query()
+        $query = Church::query()
             ->latest()
             ->when($this->search, function ($q) {
-                if (str_contains($this->search, 'dizimista')) {
-                    return $q->where('tither', true);
-                }
-                return $q->where('name', 'like', "%{$this->search}%")
-                ->orWhere('gender', 'like', "%{$this->search}%")
-                ->orWhereRelation('user', 'email', 'like', "%{$this->search}%")
-                ->orWhereRelation('role', 'role_name', 'like', "%{$this->search}%")
-                ->orWhereRelation('church', 'church_name', 'like', "%{$this->search}%");
+                return $q->where('church_name', 'like', "%{$this->search}%");
             });
 
         return $query;
@@ -115,7 +100,7 @@ class Index extends Component
     public function selectAll()
     {
         $this->selectAll = true;
-        $this->selectedRows = $this->membersQuery->pluck('id')
+        $this->selectedRows = $this->churchesQuery->pluck('id')
             ->map(fn ($item) => (string) $item)
             ->toArray();
     }
@@ -124,7 +109,7 @@ class Index extends Component
     {
         $this->selectAll = false;
         if ($value) {
-            $this->selectedRows = $this->members->pluck('id')
+            $this->selectedRows = $this->churches->pluck('id')
                 ->map(fn ($item) => (string) $item)
                 ->toArray();
         } else {
@@ -134,10 +119,10 @@ class Index extends Component
 
     public function updatedSelectedRows()
     {
-        if ($this->membersQuery->pluck('id')->count() === count($this->selectedRows)) {
+        if ($this->churchesQuery->pluck('id')->count() === count($this->selectedRows)) {
             $this->selectAllRows = true;
             $this->selectAll = true;
-        } elseif ($this->members->pluck('id')->count() === count($this->selectedRows)) {
+        } elseif ($this->churches->pluck('id')->count() === count($this->selectedRows)) {
             $this->selectAllRows = true;
             $this->selectAll = false;
         } else {
@@ -151,7 +136,7 @@ class Index extends Component
         $this->selectedRows = [];
         $this->selectAllRows = false;
         $this->selectAll = false;
-        $this->emitSelf('members::index::refresh');
+        $this->emitSelf('churches::index::refresh');
     }
 
     public function updatedSearch()

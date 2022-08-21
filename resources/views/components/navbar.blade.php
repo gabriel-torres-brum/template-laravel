@@ -1,5 +1,6 @@
 <header
-    class="fixed inset-x-0 top-0 z-20 flex h-16 items-center justify-between border-b border-zinc-200 bg-white px-6 dark:border-zinc-700 dark:bg-zinc-800"
+    class="fixed inset-x-0 top-0 z-20 flex h-16 items-center justify-between gap-4 border-b border-zinc-200 bg-white px-6 dark:border-zinc-700 dark:bg-zinc-800"
+    x-data="{ user_dropdown: false }"
 >
     <div class="flex flex-1 items-center gap-2">
         <x-button.circle
@@ -9,28 +10,24 @@
         />
         <span class="text-lg">Sistema</span>
     </div>
-    <div
-        x-data="{ dropdown: false }"
-        class="relative"
-    >
-        <div class="flex items-center gap-4">
-            <span class="text-sm">{{ $nameOfUser }}</span>
-            <x-button.circle
-                icon="user"
-                outline
-                x-on:click="dropdown = !dropdown"
-            />
-        </div>
+    <div class="flex items-center gap-4">
+        <span class="text-sm">{{ $nameOfUser }}</span>
+    </div>
+    <div class="relative flex flex-none">
+        <x-button.circle
+            icon="user"
+            outline
+            x-on:click="user_dropdown = !user_dropdown"
+        />
         <div
             x-cloak
-            x-show="dropdown"
-            x-on:click.away="dropdown = false"
-            class="absolute mt-6 ml-7 flex w-36 flex-col rounded border border-zinc-100 bg-white text-sm shadow after:absolute after:-top-2 after:right-2 after:-z-10 after:h-4 after:w-4 after:rotate-45 after:bg-white after:shadow dark:border-zinc-900 dark:bg-zinc-800 dark:after:bg-zinc-800"
+            x-show="user_dropdown"
+            x-on:click.away="user_dropdown = false"
+            class="absolute -ml-28 mt-16 flex w-36 flex-col rounded border border-zinc-100 bg-white text-sm shadow after:absolute after:-top-2 after:right-2 after:-z-10 after:h-4 after:w-4 after:rotate-45 after:bg-white after:shadow dark:border-zinc-900 dark:bg-zinc-800 dark:after:bg-zinc-800"
         >
             <button
                 x-on:click="darkMode = !darkMode"
                 class="relative inline-flex flex-1 rounded-t p-3 transition-colors hover:bg-zinc-100 dark:hover:bg-zinc-700"
-                href="javascript:void(0)"
             >
                 <x-icon
                     x-cloak

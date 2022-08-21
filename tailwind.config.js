@@ -1,3 +1,4 @@
+const colors = require('tailwindcss/colors')
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     darkMode: "class",
@@ -15,6 +16,13 @@ module.exports = {
     },
     corePlugins: {
         aspectRatio: false,
+    },
+    theme: {
+        extend: {
+            colors: {
+                secondary: colors.zinc,
+            }
+        }
     },
     presets: [
         require('./vendor/wireui/wireui/tailwind.config.js')

@@ -99,6 +99,9 @@ class Create extends Component
 
     public function show()
     {
+        $this->showAddPhones = false;
+        $this->showAddAddresses = false;
+        
         $this->show = true;
     }
 
@@ -167,6 +170,9 @@ class Create extends Component
             'addresses' => collect([]),
         ]);
 
+        $this->showAddPhones = false;
+        $this->showAddAddresses = false;
+
         $this->member->tither = false;
         $this->member->gender = 'Masculino';
         $this->user->admin = false;
@@ -181,7 +187,7 @@ class Create extends Component
 
     protected function getRolesToRenderFormSelect(): array
     {
-        $roles = Role::query()->whereIn('gender', [$this->member->gender, 'Ambos'])->pluck('id', 'role_name');
+        $roles = Role::query()->whereIn('gender', [$this->member->gender ?? null, 'Ambos'])->pluck('id', 'role_name');
 
         $rolesArray = array([
             'name' => 'Selecione',

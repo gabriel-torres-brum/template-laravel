@@ -2,6 +2,8 @@
 
 use App\Http\Livewire\Dashboard;
 use App\Http\Livewire\Members;
+use App\Http\Livewire\Roles;
+use App\Http\Livewire\Churches;
 use App\Http\Livewire\Login;
 use Illuminate\Support\Facades\Route;
 
@@ -15,12 +17,12 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('app')->group(function () {
 
-        Route::get('dashboard', Dashboard::class)->name('app.dashboard');
+        Route::get('painel', Dashboard::class)->name('app.dashboard');
 
         Route::middleware('isAdmin')->group(function () {
-            Route::prefix('members')->group(function () {
-                Route::get('/', Members\Index::class)->name('app.members');
-            });
+            Route::get('membros', Members\Index::class)->name('app.members');
+            Route::get('cargos', Roles\Index::class)->name('app.roles');
+            Route::get('igrejas', Churches\Index::class)->name('app.churches');
         });
 
     });

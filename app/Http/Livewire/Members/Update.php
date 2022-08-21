@@ -93,6 +93,9 @@ class Update extends Component
 
     public function render()
     {
+        $this->roles = $this->getRolesToRenderFormSelect();
+        $this->churches = $this->getChurchesToRenderFormSelect();
+
         return view('livewire.members.update');
     }
 
@@ -100,6 +103,9 @@ class Update extends Component
     {
         $this->member = Member::find($id);
         $this->user = User::find($this->member->user_id);
+
+        $this->showAddPhones = false;
+        $this->showAddAddresses = false;
 
         $this->phones = collect($this->member->phones->toArray());
         $this->addresses = collect($this->member->addresses->toArray());
@@ -205,7 +211,7 @@ class Update extends Component
 
     protected function getRolesToRenderFormSelect(): array
     {
-        $roles = Role::query()->whereIn('gender', [$this->member->gender, 'Ambos'])->pluck('id', 'role_name');
+        $roles = Role::query()->whereIn('gender', [$this->member->gender ?? null, 'Ambos'])->pluck('id', 'role_name');
 
         $rolesArray = array([
             'name' => 'Selecione',

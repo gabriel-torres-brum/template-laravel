@@ -7,7 +7,7 @@
         Editando informações de {{ $member->name ?? null }}
     </x-slot>
     <x-errors />
-    <div class="flex flex-col gap-4 p-2">
+    <form class="flex flex-col gap-4 p-2">
         <div class="grid grid-cols-12 gap-4">
             <div class="col-span-12">
                 <x-input
@@ -29,7 +29,7 @@
                 <x-native-select
                     label="Gênero"
                     :options="['Masculino', 'Feminino']"
-                    wire:model.defer="member.gender"
+                    wire:model="member.gender"
                 />
             </div>
             <div class="col-span-12">
@@ -44,7 +44,7 @@
                     :options="$roles"
                     option-label="name"
                     option-value="id"
-                    wire:model.defer="member.role_id"
+                    wire:model.lazy="member.role_id"
                 />
             </div>
             <div class="col-span-12 sm:col-span-6">
@@ -53,7 +53,7 @@
                     :options="$churches"
                     option-label="name"
                     option-value="id"
-                    wire:model.defer="member.church_id"
+                    wire:model.lazy="member.church_id"
                 />
             </div>
         </div>
@@ -108,7 +108,7 @@
                 Um link de mudança de senha é enviado para o email informado assim que o usuário é criado.
             </span>
         </div>
-    </div>
+    </form>
     <x-slot name="footer">
         <div class="flex justify-end gap-x-4">
             <x-button
@@ -135,7 +135,7 @@
         </x-slot>
         <div class="flex flex-col gap-2 px-2">
             @foreach ($phones as $key => $phone)
-                <div
+                <form
                     class="relative flex items-center"
                     wire:key='phone_{{ $key }}'
                 >
@@ -153,7 +153,7 @@
                         class="absolute top-0 right-0 m-1.5"
                         wire:click="removePhone({{ $key }})"
                     />
-                </div>
+                </form>
             @endforeach
             <div>
                 <x-button
@@ -184,7 +184,7 @@
         </x-slot>
         <div class="flex flex-col gap-2 px-2">
             @foreach ($addresses as $key => $address)
-                <div
+                <form
                     class="flex items-center gap-2"
                     wire:key='address_{{ $key }}'
                 >
@@ -263,7 +263,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
             @endforeach
             <div>
                 <x-button

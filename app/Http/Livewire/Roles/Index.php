@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Livewire\Members;
+namespace App\Http\Livewire\Roles;
 
-use App\Models\Member;
+use App\Models\Role;
 use Livewire\Component;
 use Livewire\WithPagination;
 use PowerComponents\LivewirePowerGrid\Traits\WithSorting;
@@ -28,8 +28,8 @@ class Index extends Component
 
     // Listeners
     public $listeners = [
-        'members::index::refresh' => '$refresh',
-        'members::index::reset-table' => 'resetTable'
+        'roles::index::refresh' => '$refresh',
+        'roles::index::reset-table' => 'resetTable'
     ];
 
     public function render()
@@ -37,44 +37,38 @@ class Index extends Component
         $this->tableOptions = [
             'selectedRows' => $this->selectedRows,
             'selectAll' => $this->selectAll,
-            'collection' => $this->members,
+            'collection' => $this->roles,
             'titles' => [
-                'Nome',
-                'Idade',
+                'Cargo',
                 'Gênero',
-                'Igreja',
-                'Cargo'
             ],
             'values' => [
-                'name',
-                'birthday->age',
+                'role_name',
                 'gender',
-                'church->church_name',
-                'role->role_name'
             ]
         ];
 
-        return view('livewire.members.index', [
+        return view('livewire.roles.index', [
             'tableOptions' => $this->tableOptions
         ]);
     }
 
     public function showCreateForm()
     {
-        $this->emit('members::create');
+        $this->emit('roles::create');
     }
     
     public function edit($id)
     {
-        $this->emit('members::update', $id);
+        $this->emit('roles::update', $id);
     }
 
     public function delete($id = null)
     {
         if ($id) {
-            Member::find($id)->delete();
+            Role::find($id)->delete();
         } else {
-            Member::whereIn('id', $this->selectedRows)->delete();
+            Role::whereIn('id', $this->selectedRows)->delete();
         }
 
         $this->resetTable();
@@ -84,24 +78,17 @@ class Index extends Component
         );
     }
 
-    public function getMembersProperty()
+    public function getRolesProperty()
     {
-        return $this->membersQuery->paginate(5);
+        return $this->rolesQuery->paginate(5);
     }
 
-    public function getMembersQueryProperty()
+    public function getRolesQueryProperty()
     {
-        $query = Member::query()
-            ->latest()
+        $query = Role::query()
             ->when($this->search, function ($q) {
-                if (str_contains($this->search, 'dizimista')) {
-                    return $q->where('tither', true);
-                }
-                return $q->where('name', 'like', "%{$this->search}%")
-                ->orWhere('gender', 'like', "%{$this->search}%")
-                ->orWhereRelation('user', 'email', 'like', "%{$this->search}%")
-                ->orWhereRelation('role', 'role_name', 'like', "%{$this->search}%")
-                ->orWhereRelation('church', 'church_name', 'like', "%{$this->search}%");
+                return $q->where('role_name', 'like', "%{$this->search}%")
+                ->orWhere('gender', 'like', "%{$this->search}%");
             });
 
         return $query;
@@ -115,7 +102,7 @@ class Index extends Component
     public function selectAll()
     {
         $this->selectAll = true;
-        $this->selectedRows = $this->membersQuery->pluck('id')
+        $this->selectedRows = $this->rolesQuery->pluck('id')
             ->map(fn ($item) => (string) $item)
             ->toArray();
     }
@@ -124,7 +111,7 @@ class Index extends Component
     {
         $this->selectAll = false;
         if ($value) {
-            $this->selectedRows = $this->members->pluck('id')
+            $this->selectedRows = $this->roles->pluck('id')
                 ->map(fn ($item) => (string) $item)
                 ->toArray();
         } else {
@@ -134,10 +121,10 @@ class Index extends Component
 
     public function updatedSelectedRows()
     {
-        if ($this->membersQuery->pluck('id')->count() === count($this->selectedRows)) {
+        if ($this->rolesQuery->pluck('id')->count() === count($this->selectedRows)) {
             $this->selectAllRows = true;
             $this->selectAll = true;
-        } elseif ($this->members->pluck('id')->count() === count($this->selectedRows)) {
+        } elseif ($this->roles->pluck('id')->count() === count($this->selectedRows)) {
             $this->selectAllRows = true;
             $this->selectAll = false;
         } else {
@@ -151,7 +138,7 @@ class Index extends Component
         $this->selectedRows = [];
         $this->selectAllRows = false;
         $this->selectAll = false;
-        $this->emitSelf('members::index::refresh');
+        $this->emitSelf('roles::index::refresh');
     }
 
     public function updatedSearch()

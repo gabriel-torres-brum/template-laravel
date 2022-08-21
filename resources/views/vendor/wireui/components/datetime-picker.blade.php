@@ -180,7 +180,8 @@
                                         .isSelected && date.month === month,
                                     'text-secondary-400 dark:text-secondary-600': date.isDisabled || date.month !==
                                         month,
-                                    'text-primary-600 border border-primary-600 dark:border-zinc-400': date.isToday && !
+                                    'text-primary-600 border border-primary-600 dark:border-zinc-400': date
+                                        .isToday && !
                                         date.isSelected,
                                     'disabled:text-primary-400 disabled:border-primary-400': date.isToday && !date
                                         .isSelected,
